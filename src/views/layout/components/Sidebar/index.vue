@@ -9,6 +9,9 @@
       :active-text-color="variables.menuActiveText"
       mode="vertical"
     >
+      <div class="logo">
+        <img v-if="!isCollapse" src="@/assets/logo.png" alt="logo">
+      </div>
       <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
     </el-menu>
   </el-scrollbar>
@@ -37,3 +40,15 @@ export default {
   }
 }
 </script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .logo{
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .logo>img{
+    max-width: 100%;
+    max-height: 100%;
+  }
+</style>
