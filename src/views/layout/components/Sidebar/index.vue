@@ -9,9 +9,9 @@
       :active-text-color="variables.menuActiveText"
       mode="vertical"
     >
-      <div class="logo">
+      <router-link class="logo" to="/">
         <img v-if="!isCollapse" src="@/assets/logo.png" alt="logo">
-      </div>
+      </router-link>
       <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
     </el-menu>
   </el-scrollbar>
