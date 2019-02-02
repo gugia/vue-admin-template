@@ -1,8 +1,8 @@
 <template>
   <el-container class="dashboard-container">
     <el-header height="auto">
-      <el-row>
-        <el-col :span="8">
+      <el-row :gutter="20">
+        <el-col :span="7">
           <el-card class="dashboard-card" shadow="hover">
             <el-row>
               <el-col>
@@ -15,8 +15,26 @@
             </el-row>
           </el-card>
         </el-col>
-        <el-col :span="8" :offset="8">
-          <el-card class="dashboard-card">
+        <el-col :span="9" class="hidden-sm-and-down">
+          <el-card class="dashboard-card" shadow="hover">
+            <el-row :gutter="20">
+              <el-col :span="6">
+                <hint-card :title="title" :value="value"/>
+              </el-col>
+              <el-col :span="6">
+                <hint-card :title="title" :value="value"/>
+              </el-col>
+              <el-col :span="6">
+                <hint-card :title="title" :value="value"/>
+              </el-col>
+              <el-col :span="6">
+                <hint-card :title="title" :value="value"/>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card class="dashboard-card" shadow="hover">
             <div class="right__info_box">
               <span class="top">待处理事项</span>
               <p>0</p>
@@ -41,9 +59,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import HintCard from '@/components/HintCard'
 
 export default {
-  name: 'Dashboard',
+  components: {
+    HintCard
+  },
+
+  data() {
+    return {
+      title: '标题',
+      value: '99'
+    }
+  },
+
   computed: {
     ...mapGetters([
       'name',
@@ -62,7 +91,7 @@ export default {
     }
     &-card {
       min-width: 100%;
-      min-height: 120px;
+      height: 120px;
       /*padding-bottom: 20px;*/
       .user-avatar {
         border-radius: 50%;
@@ -93,6 +122,7 @@ export default {
       line-height: 46px;
     }
   }
+
   .clearfix:before,
   .clearfix:after {
     display: table;
