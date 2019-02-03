@@ -1,5 +1,5 @@
-import { login, logout, getProfile } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getProfile, login, logout } from '@/api/login'
+import { getToken, removeToken, setToken } from '@/utils/auth'
 
 const user = {
   state: {
@@ -46,8 +46,8 @@ const user = {
           setToken(data.token)
           commit('SET_TOKEN', data.token)
           /* 用户资料 */
-          if (data.user.permissions && data.user.permissions.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_PERMISSIONS', data.user.permissions)
+          if (data.permissions && data.permissions.length > 0) { // 验证返回的roles是否是一个非空数组
+            commit('SET_PERMISSIONS', data.permissions)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }

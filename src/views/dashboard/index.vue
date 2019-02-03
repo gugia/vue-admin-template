@@ -1,57 +1,54 @@
 <template>
   <el-container class="dashboard-container">
     <el-header height="auto">
-      <el-row :gutter="20">
-        <el-col :span="7">
-          <el-card class="dashboard-card" shadow="hover">
-            <el-row>
-              <el-col>
-                <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-              </el-col>
-              <el-col class="hidden-sm-and-down user-info">
-                <div>你好，{{ name }}，祝你开心每一天</div>
-                <span>公司名称，角色</span>
-              </el-col>
-            </el-row>
-          </el-card>
-        </el-col>
-        <el-col :span="9" class="hidden-sm-and-down">
-          <el-card class="dashboard-card" shadow="hover">
-            <el-row :gutter="20">
-              <el-col :span="6">
-                <hint-card :title="title" :value="value"/>
-              </el-col>
-              <el-col :span="6">
-                <hint-card :title="title" :value="value"/>
-              </el-col>
-              <el-col :span="6">
-                <hint-card :title="title" :value="value"/>
-              </el-col>
-              <el-col :span="6">
-                <hint-card :title="title" :value="value"/>
-              </el-col>
-            </el-row>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card class="dashboard-card" shadow="hover">
-            <div class="right__info_box">
-              <span class="top">待处理事项</span>
-              <p>0</p>
-            </div>
-            <div class="right__info_box">
-              <span class="top">负责设备数</span>
-              <p>25<span>/99</span></p>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
+      <div class="dashboard-sub-container">
+        <el-card class="dashboard-card" shadow="hover">
+          <el-row>
+            <el-col :span="4">
+              <img v-if="avatar == null || avatar === ''" src="@/assets/default-avatar.png" class="user-avatar">
+              <img v-if="avatar != null && avatar !== ''" :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+            </el-col>
+            <el-col :span="20" class="user-info">
+              <p>你好，{{ realname }}，祝你开心每一天</p>
+              <span>公司名称，{{ role.name }}</span>
+            </el-col>
+          </el-row>
+        </el-card>
+
+        <el-card class="dashboard-card" shadow="hover">
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <hint-card :title="title" :value="value"/>
+            </el-col>
+            <el-col :span="6">
+              <hint-card :title="title" :value="value"/>
+            </el-col>
+            <el-col :span="6">
+              <hint-card :title="title" :value="value"/>
+            </el-col>
+            <el-col :span="6">
+              <hint-card :title="title" :value="value"/>
+            </el-col>
+          </el-row>
+        </el-card>
+
+        <el-card class="dashboard-card" shadow="hover">
+          <div class="right__info_box">
+            <span class="top">待处理事项</span>
+            <p>0</p>
+          </div>
+          <div class="right__info_box">
+            <span class="top">负责设备数</span>
+            <p>25<span>/99</span></p>
+          </div>
+        </el-card>
+      </div>
     </el-header>
 
     <el-main>
       <div class="dashboard-container">
-        <div class="dashboard-text">name:{{ name }}</div>
-        <div class="dashboard-text">roles:<span v-for="role in roles" :key="role">{{ role }}</span></div>
+        <div class="dashboard-text">realname:{{ realname }}</div>
+        <div class="dashboard-text">permissions:<span v-for="permission in permissions" :key="permission">{{ permission }}</span></div>
       </div>
     </el-main>
   </el-container>
@@ -75,8 +72,9 @@ export default {
 
   computed: {
     ...mapGetters([
-      'name',
-      'roles',
+      'realname',
+      'role',
+      'permissions',
       'avatar'
     ])
   }
@@ -88,11 +86,29 @@ export default {
     &-container {
       background: #f0f2f5;
       padding: 20px;
+      /*text-align: center!important;*/
+    }
+    &-sub-container {
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+      justify-content: center;
+      align-items: center;
     }
     &-card {
-      min-width: 100%;
       height: 120px;
-      /*padding-bottom: 20px;*/
+      margin-right: 20px;
+      &:first-of-type {
+        flex-wrap: wrap;
+        min-width: 360px;
+      }
+      &:last-of-type {
+        min-width: 360px;
+      }
       .user-avatar {
         border-radius: 50%;
         width: 80px;
@@ -104,12 +120,12 @@ export default {
         margin-left: 100px;
         float: left;
         display: block;
-        font-family: '微软雅黑', serif;
-        div {
-          width: 100%;
-          font-size: 20px;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        p {
+          min-width: 340px;
+          font-size: 1.5rem;
           font-weight: bold;
-          line-height: 40px;
+          line-height: 28px;
           color: #303133;
         }
         span {
